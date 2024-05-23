@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { DatePicker } from "rsuite";
-import "rsuite/DatePicker/styles/index.css";
+import DatePicker from 'rsuite/DatePicker';
+import "rsuite/dist/rsuite.min.css";
 import { createAppointment, getAppointmentsForPatient } from "../api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -35,7 +35,7 @@ export const PatientProfileModal = ({ data, closeModal }) => {
       setAppointments(res.data);
     }
     getAppointments();
-  }, []);
+  }, [data.id]);
 
   return (
     <>

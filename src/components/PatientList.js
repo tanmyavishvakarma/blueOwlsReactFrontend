@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom"; // Import Link for routing
 import { Patient } from "./Patient";
 import { searchPatients } from "../api";
 import { Search } from "semantic-ui-react";
