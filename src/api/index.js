@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://127.0.0.1:8000';
+const API_URL = 'https://blueowlsfastapibackend.onrender.com';
 
 export const getPatients = () => axios.get(`${API_URL}/patients/`);
 export const createPatient = (patient) => axios.post(`${API_URL}/patients/`, patient);

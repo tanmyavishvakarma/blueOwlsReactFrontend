@@ -10,17 +10,19 @@ export const PatientList = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setLoading(true);
-    searchPatients(searchQuery)
-      .then((response) => {
+    const fetchPatients = async () => {
+      setLoading(true);
+      try {
+        const response = await searchPatients(searchQuery);
         setSearchResults(response.data);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error("Failed to search patients", error);
-      })
-      .finally(() => {
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+
+    fetchPatients();
   }, [searchQuery]);
 
   const handleSearchChange = (e, { value }) => {
@@ -31,13 +33,13 @@ export const PatientList = () => {
     <>
       <h3>Patient List</h3>
       <Search
+        loading={loading}
         results={[]}
         showNoResults={false}
         placeholder="Search..."
         onSearchChange={handleSearchChange}
         value={searchQuery}
       />
-      {loading && <p>Loading...</p>}
       {!loading && searchResults.length === 0 && (
         <h4>No patients found. Navigate to Create Patient Profile To Add New Patient</h4>
       )}
