@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import DatePicker from 'rsuite/DatePicker';
+import DatePicker from "rsuite/DatePicker";
 import "rsuite/dist/rsuite.min.css";
 import { createAppointment, getAppointmentsForPatient } from "../api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export const PatientProfileModal = ({ data, closeModal }) => {
-  console.log(data.appointments);
   const [isCreatingAppointment, setIsCreatingAppointment] = useState(false);
   const [currentDate, setNewDate] = useState(new Date());
   const [updatedAppointments, setAppointments] = useState();
@@ -83,6 +82,7 @@ export const PatientProfileModal = ({ data, closeModal }) => {
                   <h5> Select Appointment Date:</h5>
                 </label>
                 <DatePicker
+                  format="yyyy-MM-dd HH:mm:ss"
                   oneTap
                   value={currentDate}
                   onChange={(e) => setNewDate(e)}
@@ -123,11 +123,42 @@ export const PatientProfileModal = ({ data, closeModal }) => {
             </div>
             <div>
               <b>Scheduled Appointments:</b>
-              {updatedAppointments?.map((item) => (
-                <div key={item.id}>
-                  {item?.appointment_time.split("T")[0].replaceAll("-", "/")}
-                </div>
-              ))}
+              {updatedAppointments?.map((item) => {
+
+                const appointmentTimeUTC = new Date(
+                  item.appointment_time + "Z"
+                );
+                const options = {
+                  timeZone: "Asia/Kolkata",
+                  year: "numeric",
+                  month: "2-digit",
+                  day: "2-digit",
+                  hour: "numeric",
+                  minute: "numeric",
+                  hour12: true,
+                };
+                const formattedTimeIST = appointmentTimeUTC.toLocaleString(
+                  "en-IN",
+                  options
+                );
+
+                return (
+                  <ul key={item.id}>
+                    <li>
+                      <b>Date/Time</b>: {formattedTimeIST}
+                      <br></br>
+                      <b>Stripe Payment Link</b>:{" "}
+                      <a
+                        href={item.payment_link}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {item.payment_link}
+                      </a>
+                    </li>
+                  </ul>
+                );
+              })}
             </div>
             <button
               onClick={() => setIsCreatingAppointment(true)}
