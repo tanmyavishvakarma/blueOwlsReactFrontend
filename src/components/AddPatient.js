@@ -63,7 +63,7 @@ export const AddPatient = ({ setCallFetch }) => {
             required
           />
         </div>
-        <button type="submit" className="btn">
+        <button style={{marginTop:"30px"}} type="submit" className="btn">
           Add Patient
         </button>
       </form>
