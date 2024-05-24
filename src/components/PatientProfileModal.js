@@ -111,7 +111,7 @@ export const PatientProfileModal = ({ data, closeModal }) => {
           </form>
         ) : (
           <div>
-            <h3>Patient Profile</h3>
+            <h3>{data.name} Profile</h3>
             <div>
               <b>Name:</b> {data.name}
             </div>
@@ -123,42 +123,45 @@ export const PatientProfileModal = ({ data, closeModal }) => {
             </div>
             <div>
               <b>Scheduled Appointments:</b>
-              {updatedAppointments?.map((item) => {
+              {updatedAppointments?.length > 0 ? (
+                updatedAppointments?.map((item) => {
+                  const appointmentTimeUTC = new Date(
+                    item.appointment_time + "Z"
+                  );
+                  const options = {
+                    timeZone: "Asia/Kolkata",
+                    year: "numeric",
+                    month: "2-digit",
+                    day: "2-digit",
+                    hour: "numeric",
+                    minute: "numeric",
+                    hour12: true,
+                  };
+                  const formattedTimeIST = appointmentTimeUTC.toLocaleString(
+                    "en-IN",
+                    options
+                  );
 
-                const appointmentTimeUTC = new Date(
-                  item.appointment_time + "Z"
-                );
-                const options = {
-                  timeZone: "Asia/Kolkata",
-                  year: "numeric",
-                  month: "2-digit",
-                  day: "2-digit",
-                  hour: "numeric",
-                  minute: "numeric",
-                  hour12: true,
-                };
-                const formattedTimeIST = appointmentTimeUTC.toLocaleString(
-                  "en-IN",
-                  options
-                );
-
-                return (
-                  <ul key={item.id}>
-                    <li>
-                      <b>Date/Time</b>: {formattedTimeIST}
-                      <br></br>
-                      <b>Stripe Payment Link</b>:{" "}
-                      <a
-                        href={item.payment_link}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        {item.payment_link}
-                      </a>
-                    </li>
-                  </ul>
-                );
-              })}
+                  return (
+                    <ul key={item.id}>
+                      <li>
+                        <b>Date/Time</b>: {formattedTimeIST}
+                        <br></br>
+                        <b>Stripe Payment Link</b>:{" "}
+                        <a
+                          href={item.payment_link}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {item.payment_link}
+                        </a>
+                      </li>
+                    </ul>
+                  );
+                })
+              ) : (
+                <b> No Appointments Scheduled</b>
+              )}
             </div>
             <button
               onClick={() => setIsCreatingAppointment(true)}

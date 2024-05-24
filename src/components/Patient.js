@@ -23,16 +23,22 @@ export const Patient = ({ data }) => {
   const closeModal = () => setIsModalOpen(false);
 
   return (
-    <li style={{ minWidth: "400px" }}>
+    <li style={{ minWidth: "430px" }}>
       <div
         style={{
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          width: "100%",
+          minHeight: "100%",
+          minWidth: "100%",
+          position: "relative",
+          backgroundColor: "white",
+          padding: "20px",
+          borderRadius: "8px",
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
         }}
       >
-        <div className="slab">
+        <div>
           <div>
             <b>Name</b>: {data.name}
           </div>

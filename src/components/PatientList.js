@@ -43,7 +43,7 @@ export const PatientList = () => {
         <h4>No patients found. Navigate to Create Patient Profile To Add New Patient</h4>
       )}
       {!loading && searchResults.length > 0 && (
-        <ul className="list">
+        <ul className="list" style={{marginTop:"8px"}}>
           {searchResults.map((data) => (
             <Patient key={data.id} data={data} />
           ))}
