@@ -1,6 +1,5 @@
 
-# Project Name
-Tanmya Vishvakarma Blue Owls Frontend
+# Tanmya Vishvakarma Blue Owls Frontend
 
 ## Prerequisites
 Make sure you have the following software installed on your machine:
@@ -34,3 +33,16 @@ After the dependencies are installed, you can start the React application with t
 ```bash
 npm start
 ```
+
+### Step 5: To connect to local FastApi server
+Change 
+```bash
+const API_URL = 'https://blueowlsfastapibackend.onrender.com';
+```
+to
+```bash
+const API_URL = 'http://127.0.0.1:8000';
+```
+in ```src/api/index.js```
+
+You have to handle ```CORS``` in your browswer using a chrome extention or a browser script
